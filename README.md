@@ -13,15 +13,15 @@ This can convert :
 I needed to do this transformations a few times in the past, and got tired of looking them up.  
 Most of the solutions I found were either more complicated, or they required heavy 3rd party libraries or frameworks.   
 This is a very lightweight solution, and very simple to follow.  
-
+<br/><br/>
 
 Just include this library in your html code :
-```
+```html
 <script src="reimg.js"></script>
 ```
-
+<br/><br/>
 Here are some examples on how to use it :
-```
+```javascript
 // convert svg element to img element
 var img = ReImg.fromSvg(document.querySelector('svg')).toImg();
 // now 'img' is the img element created
