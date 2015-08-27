@@ -15,5 +15,24 @@ Most of the solutions I found were either more complicated, or they required hea
 This is a very lightweight solution, and very simple to follow.  
 
 
+Just include this library in your html code :
+```
+<script src="reimg.js"></script>
+```
 
+Here are some examples on how to use it :
+```
+// convert svg element to img element
+var img = ReImg.fromSvg(document.querySelector('svg')).toImg();
+// now 'img' is the img element created
+
+// convert svg element to png
+var png = ReImg.fromSvg(document.getElementById('svg-element-id')).toPng();
+
+// force client download of svg as png image
+ReImg.fromSvg(document.querySelector('svg')).downloadPng();
+
+// convert canvas to png
+var png = ReImg.fromSvg(document.getElementByID('canvasId')).toPng();
+```
 
