@@ -1,19 +1,34 @@
 
 window.ReImg = {
 
-    OutputProcessor: function(encodedData) {
+    OutputProcessor: function(encodedData, svgElement) {
+
+        var isPng = function() {
+            return encodedData.indexOf('data:image/png') === 0;
+        };
+
+        var downloadImage = function(data, filename) {
+            var a = document.createElement('a');
+            a.href = data;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+        };
+
         return {
             toBase64: function() {
                 return encodedData;
             },
             toImg: function() {
                 var imgElement = document.createElement('img');
-                imgElement.src = 'data:image/svg+xml;base64,' + encodedData;
+                imgElement.src = encodedData;
                 return imgElement;
             },
             toCanvas: function(callback) {
-                // https://gist.github.com/gustavohenke/9073132
                 var canvas = document.createElement('canvas');
+                var boundedRect = svgElement.getBoundingClientRect();
+                canvas.width = boundedRect.width;
+                canvas.height = boundedRect.height;
                 var canvasCtx = canvas.getContext('2d');
 
                 var img = this.toImg();
@@ -22,25 +37,43 @@ window.ReImg = {
                     callback(canvas);
                 };
             },
-            downloadPng: function() {
-                // http://stackoverflow.com/questions/6796974/force-download-an-image-using-javascript
+            toPng: function() {
+                if (isPng()) {
+                    var img = document.createElement('img');
+                    img.src = encodedData;
+                    return img;
+                }
+
                 this.toCanvas(function(canvas) {
-                    var imageData = canvas.toDataURL('image/png;base64');
-                    imageData.replace('image/png', 'image/octet-stream');
-                    window.location.href = imageData;
+                    var img = document.createElement('img');
+                    img.src = canvas.toDataURL();
+                    return img;
+                });
+            },
+            downloadPng: function() {
+                if (isPng()) {
+                    // it's a canvas already
+                    downloadImage(encodedData, 'image.png');
+                    return;
+                }
+
+                // convert to canvas first
+                this.toCanvas(function(canvas) {
+                    downloadImage(canvas.toDataURL(), 'image.png');
                 });
             }
+            // todo: add `toJpeg(quality)` method
         };
     },
 
     fromSvg: function(svgElement) {
         var svgString = new XMLSerializer().serializeToString(svgElement);
-        return new this.OutputProcessor(window.btoa(svgString));
+        return new this.OutputProcessor('data:image/svg+xml;base64,' + window.btoa(svgString), svgElement);
+    },
+
+    fromCanvas: function(canvasElement) {
+        var dataUrl = canvasElement.toDataURL();
+        return new this.OutputProcessor(dataUrl);
     }
 
 };
-
-//var img = ReImg.fromSvg(mySvg).toImg();
-//var canvas = ReImg.fromSvg(mySvg).toCanvas();
-
-//var base64 = ReImg.fromCanvas(myCanvas).toBase64();
