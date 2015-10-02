@@ -51,11 +51,14 @@ window.ReImg = {
                 });
             },
             toJpeg: function(quality) { // quality should be between 0-1
-                this.toCanvas(function(canvas) {
-                    var img = document.createElement('img');
-                    img.src = canvas.toDataURL('image/jpeg', quality);
-                    return img;
-                });
+                quality = quality || 1.0;
+                (function(q) {
+                    this.toCanvas(function(canvas) {
+                        var img = document.createElement('img');
+                        img.src = canvas.toDataURL('image/jpeg', q);
+                        return img;
+                    });
+                })(quality);
             },
             downloadPng: function() {
                 if (isPng()) {
