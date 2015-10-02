@@ -50,6 +50,13 @@ window.ReImg = {
                     return img;
                 });
             },
+            toJpeg: function(quality) { // quality should be between 0-1
+                this.toCanvas(function(canvas) {
+                    var img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/jpeg', quality);
+                    return img;
+                });
+            },
             downloadPng: function() {
                 if (isPng()) {
                     // it's a canvas already
@@ -62,7 +69,6 @@ window.ReImg = {
                     downloadImage(canvas.toDataURL(), 'image.png');
                 });
             }
-            // todo: add `toJpeg(quality)` method
         };
     },
 
