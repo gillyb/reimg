@@ -36,3 +36,6 @@ ReImg.fromSvg(document.querySelector('svg')).downloadPng();
 var png = ReImg.fromCanvas(document.getElementByID('canvasId')).toPng();
 ```
 
+<br/><br/>
+## License  
+This piece of software is issued under the MIT license. You can view the license [here](https://github.com/gillyb/reimg/blob/master/LICENSE.md)
