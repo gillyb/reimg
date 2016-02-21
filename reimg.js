@@ -60,16 +60,17 @@ window.ReImg = {
                     });
                 })(quality);
             },
-            downloadPng: function() {
+            downloadPng: function(filename) {
+                filename = filename || 'image.png';
                 if (isPng()) {
                     // it's a canvas already
-                    downloadImage(encodedData, 'image.png');
+                    downloadImage(encodedData, filename);
                     return;
                 }
 
                 // convert to canvas first
                 this.toCanvas(function(canvas) {
-                    downloadImage(canvas.toDataURL(), 'image.png');
+                    downloadImage(canvas.toDataURL(), filename);
                 });
             }
         };
