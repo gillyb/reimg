@@ -33,7 +33,7 @@ var png = ReImg.fromSvg(document.getElementById('svg-element-id')).toPng();
 ReImg.fromSvg(document.querySelector('svg')).downloadPng();
 
 // convert canvas to png
-var png = ReImg.fromCanvas(document.getElementByID('canvasId')).toPng();
+var png = ReImg.fromCanvas(document.getElementById('canvasId')).toPng();
 ```
 
 <br/><br/>
