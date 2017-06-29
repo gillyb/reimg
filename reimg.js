@@ -1,5 +1,4 @@
-
-window.ReImg = {
+ReImg = {
 
     OutputProcessor: function(encodedData, svgElement) {
 
@@ -87,3 +86,13 @@ window.ReImg = {
     }
 
 };
+
+if(typeof exports === 'object' && typeof module !==  void 0) {
+    module.exports = {
+        ReImg:ReImg
+    };
+}
+
+else {
+    window.ReImg = ReImg;
+}
