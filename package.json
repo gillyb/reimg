@@ -1,0 +1,19 @@
+{
+  "name": "reimg",
+  "version": "1.0.0",
+  "description": "library for converting image formats",
+  "main": "reimg.js",
+  "directories": {
+    "example": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gillyb/reimg.git"
+  },
+  "author": "Gilly Bar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gillyb/reimg/issues"
+  },
+  "homepage": "https://github.com/gillyb/reimg#readme"
+}
